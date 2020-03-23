@@ -1,0 +1,19 @@
+version: '3'
+services: 
+
+  # other configs ......................
+  mongodb:
+    image: 'mongo'
+    container_name: 'mongodbx'
+    ports:
+      - "27017-27019:27017-27019"
+    # environment: 
+    #   - MONGO_INITDB_DATABASE=database-name # database name 
+    #   - MONGO_INITDB_ROOT_USERNAME=username # set the container root username
+    #   - MONGO_INITDB_ROOT_PASSWORD=secret # set the container root password
+    volumes:
+      - ./dataset:/dataset
+      - ./scripts:/scripts
+    #   - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    #   - ./mongo-volume:/data/db
+  # other configs ......................
