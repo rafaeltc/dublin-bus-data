@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+      database: transport
+    repositories:
+      enabled: true
+logging:
+  level:
+    com.rafaeltc.dublinbusdata: DEBUG
+    org.springframework.data.mongodb.core:.MongoTemplate: DEBUG
