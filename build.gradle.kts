@@ -21,7 +21,7 @@ group = "com.rafaeltc"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
-//val vertxVersion = "3.8.5"
+val vertxVersion = "3.8.5"
 
 repositories {
 	jcenter()
@@ -44,6 +44,7 @@ dependencies {
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 	implementation("io.github.microutils:kotlin-logging:1.7.8")
 
+	implementation("io.vertx:vertx-web:$vertxVersion")
 	//implementation("io.vertx:vertx-core:$vertxVersion")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3c5d140e-0647-4c66-bfe9-4875bbefda56",
+		"_postman_id": "2a12ba2c-a9b2-426f-a96d-19f23e951687",
 		"name": "Dublin Bus Data",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,7 +11,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://{{host}}/api/datapoints/operators?from=1353888001000000&to=1353888003000000",
+					"raw": "http://{{host}}/api/datapoints/operators?from=1359590403000000&to=1359590403000000",
 					"protocol": "http",
 					"host": [
 						"{{host}}"
@@ -24,11 +24,11 @@
 					"query": [
 						{
 							"key": "from",
-							"value": "1353888001000000"
+							"value": "1359590403000000"
 						},
 						{
 							"key": "to",
-							"value": "1353888003000000"
+							"value": "1359590403000000"
 						}
 					]
 				}
@@ -41,7 +41,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://{{host}}/api/datapoints/vehicles?from=1353888001000000&to=1353888003000000&vehicleIds=38004,36022,33486&atStop=true",
+					"raw": "http://{{host}}/api/datapoints/vehicles?from=1359590403000000&to=1359590403000000&vehicleIds=33584,40029,33100,33485&atStop=true",
 					"protocol": "http",
 					"host": [
 						"{{host}}"
@@ -54,15 +54,15 @@
 					"query": [
 						{
 							"key": "from",
-							"value": "1353888001000000"
+							"value": "1359590403000000"
 						},
 						{
 							"key": "to",
-							"value": "1353888003000000"
+							"value": "1359590403000000"
 						},
 						{
 							"key": "vehicleIds",
-							"value": "38004,36022,33486"
+							"value": "33584,40029,33100,33485"
 						},
 						{
 							"key": "atStop",
@@ -80,7 +80,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://{{host}}/api/datapoints/vehicles/33413?from=1353888001000000&to=1353888003000000",
+					"raw": "http://{{host}}/api/datapoints/vehicles/40007?from=1359590403000000&to=1359590403000000",
 					"protocol": "http",
 					"host": [
 						"{{host}}"
@@ -89,16 +89,16 @@
 						"api",
 						"datapoints",
 						"vehicles",
-						"33413"
+						"40007"
 					],
 					"query": [
 						{
 							"key": "from",
-							"value": "1353888001000000"
+							"value": "1359590403000000"
 						},
 						{
 							"key": "to",
-							"value": "1353888003000000"
+							"value": "1359590403000000"
 						}
 					]
 				},
@@ -112,7 +112,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://{{host}}/api/datapoints/vehicles/operators/CD?from=1353888001000000&to=1353888003000000",
+					"raw": "http://{{host}}/api/datapoints/vehicles/operators/CD?from=1359590403000000&to=1359590403000000",
 					"protocol": "http",
 					"host": [
 						"{{host}}"
@@ -127,15 +127,34 @@
 					"query": [
 						{
 							"key": "from",
-							"value": "1353888001000000"
+							"value": "1359590403000000"
 						},
 						{
 							"key": "to",
-							"value": "1353888003000000"
+							"value": "1359590403000000"
 						}
 					]
 				},
 				"description": "Retrieves the vehicles for a given operators between from and to timestamps"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Datapoints",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/api/datapoints",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"datapoints"
+					]
+				}
 			},
 			"response": []
 		}

@@ -25,6 +25,9 @@ internal class DataPointControllerTest {
     @MockkBean
     private lateinit var repository: DataPointRepository
 
+    @MockkBean
+    private lateinit var vertex: VertXServer
+
     @Test
     fun `should retrieve all datapoints`() {
 
