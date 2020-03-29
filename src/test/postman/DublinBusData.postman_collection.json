@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "3c5d140e-0647-4c66-bfe9-4875bbefda56",
+		"name": "Dublin Bus Data",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get operators given timeframe",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/api/datapoints/operators?from=1353888001000000&to=1353888003000000",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"datapoints",
+						"operators"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "1353888001000000"
+						},
+						{
+							"key": "to",
+							"value": "1353888003000000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get stopped vehicles given timeframe",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/api/datapoints/vehicles?from=1353888001000000&to=1353888003000000&vehicleIds=38004,36022,33486&atStop=true",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"datapoints",
+						"vehicles"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "1353888001000000"
+						},
+						{
+							"key": "to",
+							"value": "1353888003000000"
+						},
+						{
+							"key": "vehicleIds",
+							"value": "38004,36022,33486"
+						},
+						{
+							"key": "atStop",
+							"value": "true"
+						}
+					]
+				},
+				"description": "Given a list of vehicles and a timeframe, retrieves the *ids* of the stopped vehicles"
+			},
+			"response": []
+		},
+		{
+			"name": "get vehicle GPS entries given timeframe",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/api/datapoints/vehicles/33413?from=1353888001000000&to=1353888003000000",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"datapoints",
+						"vehicles",
+						"33413"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "1353888001000000"
+						},
+						{
+							"key": "to",
+							"value": "1353888003000000"
+						}
+					]
+				},
+				"description": "Retrieves the vehicle's GPS entries between from and to timestamps"
+			},
+			"response": []
+		},
+		{
+			"name": "get Vehicles by operator given timeframe",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/api/datapoints/vehicles/operators/CD?from=1353888001000000&to=1353888003000000",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"datapoints",
+						"vehicles",
+						"operators",
+						"CD"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "1353888001000000"
+						},
+						{
+							"key": "to",
+							"value": "1353888003000000"
+						}
+					]
+				},
+				"description": "Retrieves the vehicles for a given operators between from and to timestamps"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "5f1df093-40d3-4d2c-8b86-16f9423187fd",
+			"key": "host",
+			"value": "localhost:7777",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

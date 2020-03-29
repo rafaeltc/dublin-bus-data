@@ -1,7 +1,6 @@
 version: '3'
 services: 
 
-  # other configs ......................
   mongodb:
     image: 'mongo'
     container_name: 'mongodbx'
@@ -16,4 +15,15 @@ services:
       - ./scripts:/scripts
     #   - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
     #   - ./mongo-volume:/data/db
-  # other configs ......................
+
+#    dublin-bus-data-microservice:
+#      image: dublin-bus-data-microservice:1
+#      build:
+#        context: ./
+#        dockerfile: Dockerfile
+#      volume:
+#        - /data/dublin-bus-data-microservice
+#      ports:
+#        - "7777:7777"
+#      depends_on:
+#        - "mongodb"
