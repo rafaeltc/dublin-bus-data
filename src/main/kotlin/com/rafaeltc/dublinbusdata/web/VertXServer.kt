@@ -23,10 +23,10 @@ class VertXServer(private val repository: DataPointRepository, private val env: 
         // Set up routes
         var router = Router.router(vertx)
         router.get("/api/datapoints").handler(this::getAll)
-        router.get("/api/datapoints/vehicles").handler(this::getStoppedVehicles)
-        router.get("/api/datapoints/vehicles/:vehicleId").handler(this::getVehicleGPSTrace)
-        router.get("/api/datapoints/operators").handler(this::getOperators)
-        router.get("/api/datapoints/vehicles/operators/:operator").handler(this::getVehicleIds)
+//        router.get("/api/datapoints/vehicles").handler(this::getStoppedVehicles)
+//        router.get("/api/datapoints/vehicles/:vehicleId").handler(this::getVehicleGPSTrace)
+//        router.get("/api/datapoints/operators").handler(this::getOperators)
+//        router.get("/api/datapoints/vehicles/operators/:operator").handler(this::getVehicleIds)
 
         router.route("/").handler { routingContext ->
             routingContext.response()
@@ -50,70 +50,70 @@ class VertXServer(private val repository: DataPointRepository, private val env: 
                 .end(Json.encodePrettily(repository.findAll()))
     }
 
-    private fun getStoppedVehicles(routingContext: RoutingContext) {
-        with(routingContext.request()) {
-            val from = getParam("from").toLong()
-            val to = getParam("to").toLong()
-            val atStop = getParam("atStop").toBoolean()
-            val vehicleIds = getParam("vehicleIds").split(",").map { it.toInt() }
-
-            routingContext.response()
-                .putHeader("content-type", "application/json; charset=utf-8")
-                .end(Json.encodePrettily(
-                    repository.findStoppedVehicles(from, to, vehicleIds, atStop, Sort.by(Direction.ASC, "vehicleId"))
-                            .also { logger.debug { "Query returned ${it.size} results"}}
-                            .distinctBy { it.vehicleId }
-                            .map { it.vehicleId }
-                ))
-        }
-    }
-
-    private fun getVehicleGPSTrace(routingContext: RoutingContext) {
-        with(routingContext.request()) {
-            val from = getParam("from").toLong()
-            val to = getParam("to").toLong()
-            val vehicleId = getParam("vehicleId").toInt()
-
-            routingContext.response()
-                    .putHeader("content-type", "application/json; charset=utf-8")
-                    .end(Json.encodePrettily(
-                        repository.findVehicleTrace(from, to, vehicleId, Sort.by(Direction.ASC, "timestamp"))
-                                .also { logger.debug { "Query returned ${it.size} results"}}
-                                .map { GPSTrace(it.timestamp, it.long, it.lat) }
-                    ))
-        }
-    }
-
-    private fun getOperators(routingContext: RoutingContext) {
-
-        with(routingContext.request()) {
-            val from = getParam("from").toLong()
-            val to = getParam("to").toLong()
-
-            routingContext.response()
-                .putHeader("content-type", "application/json; charset=utf-8")
-                .end(Json.encodePrettily(
-                    repository.findOperatorsByTimestamp(from, to,Sort.by(Direction.ASC, "operator"))
-                            .distinctBy { it.operator }.map { data -> data.operator }
-                            .also { logger.debug { "Query returned ${it.size} results"}}
-                ))
-        }
-    }
-
-    private fun getVehicleIds(routingContext: RoutingContext) {
-
-        with(routingContext.request()) {
-            val from = getParam("from").toLong()
-            val to = getParam("to").toLong()
-            val operator = getParam("operator")
-
-            routingContext.response()
-                .putHeader("content-type", "application/json; charset=utf-8")
-                .end(Json.encodePrettily(
-                    repository.findVehiclesByOperator(from, to, operator, Sort.by(Direction.ASC, "vehicleId"))
-                        .distinctBy { it.vehicleId }.map { data -> data.vehicleId }
-                        .also { logger.debug { "Query return $it.size results" } }
-                ))
-        }
-    }
+//    private fun getStoppedVehicles(routingContext: RoutingContext) {
+//        with(routingContext.request()) {
+//            val from = getParam("from").toLong()
+//            val to = getParam("to").toLong()
+//            val atStop = getParam("atStop").toBoolean()
+//            val vehicleIds = getParam("vehicleIds").split(",").map { it.toInt() }
+//
+//            routingContext.response()
+//                .putHeader("content-type", "application/json; charset=utf-8")
+//                .end(Json.encodePrettily(
+//                    repository.findStoppedVehicles(from, to, vehicleIds, atStop, Sort.by(Direction.ASC, "vehicleId"))
+//                            .also { logger.debug { "Query returned ${it.size} results"}}
+//                            .distinctBy { it.vehicleId }
+//                            .map { it.vehicleId }
+//                ))
+//        }
+//    }
+//
+//    private fun getVehicleGPSTrace(routingContext: RoutingContext) {
+//        with(routingContext.request()) {
+//            val from = getParam("from").toLong()
+//            val to = getParam("to").toLong()
+//            val vehicleId = getParam("vehicleId").toInt()
+//
+//            routingContext.response()
+//                    .putHeader("content-type", "application/json; charset=utf-8")
+//                    .end(Json.encodePrettily(
+//                        repository.findVehicleTrace(from, to, vehicleId, Sort.by(Direction.ASC, "timestamp"))
+//                                .also { logger.debug { "Query returned ${it.size} results"}}
+//                                .map { GPSTrace(it.timestamp, it.long, it.lat) }
+//                    ))
+//        }
+//    }
+//
+//    private fun getOperators(routingContext: RoutingContext) {
+//
+//        with(routingContext.request()) {
+//            val from = getParam("from").toLong()
+//            val to = getParam("to").toLong()
+//
+//            routingContext.response()
+//                .putHeader("content-type", "application/json; charset=utf-8")
+//                .end(Json.encodePrettily(
+//                    repository.findOperatorsByTimestamp(from, to,Sort.by(Direction.ASC, "operator"))
+//                            .distinctBy { it.operator }.map { data -> data.operator }
+//                            .also { logger.debug { "Query returned ${it.size} results"}}
+//                ))
+//        }
+//    }
+//
+//    private fun getVehicleIds(routingContext: RoutingContext) {
+//
+//        with(routingContext.request()) {
+//            val from = getParam("from").toLong()
+//            val to = getParam("to").toLong()
+//            val operator = getParam("operator")
+//
+//            routingContext.response()
+//                .putHeader("content-type", "application/json; charset=utf-8")
+//                .end(Json.encodePrettily(
+//                    repository.findVehiclesByOperator(from, to, operator, Sort.by(Direction.ASC, "vehicleId"))
+//                        .distinctBy { it.vehicleId }.map { data -> data.vehicleId }
+//                        .also { logger.debug { "Query return $it.size results" } }
+//                ))
+//        }
+//    }
 }

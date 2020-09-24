@@ -1,11 +1,13 @@
 package com.rafaeltc.dublinbusdata.web
 
+import com.rafaeltc.dublinbusdata.model.DataPoint
 import com.rafaeltc.dublinbusdata.model.GPSTrace
 import com.rafaeltc.dublinbusdata.services.DataPointRepository
 import mu.KotlinLogging
 import org.springframework.data.domain.Sort
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.util.concurrent.Future
 
 @RestController
 @RequestMapping("/api/datapoints") //controller root path
@@ -36,6 +38,7 @@ class DataPointController(private val repository: DataPointRepository) {
                             @RequestParam to:Long,
                             @RequestParam(required = false, defaultValue = "ASC") sort:Sort.Direction) : ResponseEntity<List<String>> {
         repository.findOperatorsByTimestamp(from, to, Sort.by(sort, "operator"))
+                .get()
                 .also {
                     logger.debug { "Query returned ${it.size} results" }
                     return ResponseEntity.ok(it.distinctBy { it.operator }.map { data -> data.operator })
@@ -58,9 +61,11 @@ class DataPointController(private val repository: DataPointRepository) {
 
         //repository.findAll(PageRequest.of(0,3, Sort.Direction.DESC, "")).get()
         repository.findVehiclesByOperator(from, to, operator, Sort.by(sort, "vehicleId"))
+                .get()
                 .also {
                     logger.debug { "Query returned ${it.size} results" }
-                    return ResponseEntity.ok(it.distinctBy { it.vehicleId }.map { data -> data.vehicleId}) }
+                    return ResponseEntity.ok(it.distinctBy { it.vehicleId }.map { data -> data.vehicleId})
+                }
     }
 
     /**
@@ -80,6 +85,7 @@ class DataPointController(private val repository: DataPointRepository) {
                            @RequestParam(required = false, defaultValue = "ASC") sort:Sort.Direction): ResponseEntity<List<String>> {
 
         repository.findStoppedVehicles(from, to, vehicleIds, atStop, Sort.by(sort, "vehicleId"))
+                .get()
                 .also {
                     logger.debug { "Query returned ${it.size} results" }
                     return ResponseEntity.ok(it.distinctBy { it.vehicleId }.map { it.vehicleId })
@@ -101,7 +107,8 @@ class DataPointController(private val repository: DataPointRepository) {
             @PathVariable vehicleId:Int,
             @RequestParam(required = false, defaultValue = "ASC") sort:Sort.Direction): ResponseEntity<List<GPSTrace>> {
 
-        repository.findVehicleTrace(from, to, vehicleId, Sort.by(sort, "timestamp"))
+            repository.findVehicleTrace(from, to, vehicleId, Sort.by(sort, "timestamp"))
+                .get()
                 .also {
                     logger.debug { "Query returned ${it.size} results" }
                     return ResponseEntity.ok(it.map { GPSTrace(it.timestamp, it.long, it.lat) })

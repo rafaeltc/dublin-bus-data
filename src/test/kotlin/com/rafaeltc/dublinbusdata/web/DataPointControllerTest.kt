@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import java.util.concurrent.Executors
+import java.util.concurrent.Future
 
 @ExtendWith(SpringExtension::class)
 @WebMvcTest(DataPointController::class)
@@ -46,7 +48,8 @@ internal class DataPointControllerTest {
         val from = 1353888001000000
         val to = 1353888003000000
 
-        every { repository.findOperatorsByTimestamp(from, to, any()) } returns listOf()
+        every { repository.findOperatorsByTimestamp(from, to, any()) } returns
+                Executors.newSingleThreadExecutor().submit{ } as Future<List<DataPoint>>
 
         mockMvc.perform(get("/api/datapoints/operators")
                         .param("from","$from")
@@ -63,7 +66,8 @@ internal class DataPointControllerTest {
         val to = 1353888003000000
         val operator = "CD"
 
-        every { repository.findVehiclesByOperator(from, to, operator, any()) } returns listOf()
+        every { repository.findVehiclesByOperator(from, to, operator, any()) } returns
+                Executors.newSingleThreadExecutor().submit{ } as Future<List<DataPoint>>
 
         mockMvc.perform(get("/api/datapoints/vehicles/operators/$operator")
                         .param("from","$from")
@@ -80,7 +84,8 @@ internal class DataPointControllerTest {
         val to = 1353888003000000
         val vehicleId = 33413
 
-        every { repository.findVehicleTrace(from, to, vehicleId, any()) } returns listOf()
+        every { repository.findVehicleTrace(from, to, vehicleId, any()) } returns
+                Executors.newSingleThreadExecutor().submit{ } as Future<List<DataPoint>>
 
         mockMvc.perform(get("/api/datapoints/vehicles/$vehicleId")
                         .param("from","$from")
@@ -98,7 +103,8 @@ internal class DataPointControllerTest {
         val vehicleIdList = listOf(38004,36022,33486)
         val atStop = true;
 
-        every { repository.findStoppedVehicles(from, to, vehicleIdList, atStop, any()) } returns listOf()
+        every { repository.findStoppedVehicles(from, to, vehicleIdList, atStop, any()) } returns
+                Executors.newSingleThreadExecutor().submit{ } as Future<List<DataPoint>>
 
         mockMvc.perform(get("/api/datapoints/vehicles/")
                         .param("from","$from")
